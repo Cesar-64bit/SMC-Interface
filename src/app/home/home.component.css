@@ -1,0 +1,27 @@
+.jumbotron {
+    background-color: #e9ecef;
+    padding: 3rem 2rem;
+    border-radius: 0.3rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.card {
+    margin-top: 1rem;
+}
+
+.card-body h5 {
+    margin-bottom: 0.5rem;
+}
+
+.alert {
+    margin-bottom: 1rem;
+}

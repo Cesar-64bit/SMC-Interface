@@ -6,9 +6,6 @@
         <div class="mb-3 d-flex justify-content-end">
             <button class="btn btn-primary" type="button" [routerLink]="['/pacientes/form']">Crear Paciente</button>
         </div>
-
-
-
         <div *ngIf="pacientes?.length == 0" class="alert alert-info">
             No hay registros en la base de datos.
         </div>
@@ -41,6 +38,8 @@
                             <td>{{paciente.email}}</td>
                             <td>
                                 <div class="btn-group" role="group">
+                                    <button type="button" [routerLink]="['/info', paciente.id]"
+                                        class="btn btn-success btn-sm">Info</button>
                                     <button type="button" [routerLink]="['/pacientes/form', paciente.id]"
                                         class="btn btn-primary btn-sm">Editar</button>
                                     <button type="button" (click)="delete(paciente)"

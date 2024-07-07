@@ -1,0 +1,43 @@
+<div class="container mt-5">
+    <div class="jumbotron text-center bg-light p-5 rounded">
+        <h1 class="display-4">Sistema de Monitoreo Cardíaco</h1>
+        <p class="lead">Monitoreo en tiempo real del ritmo cardíaco de sus pacientes.</p>
+        <hr class="my-4">
+        <p>Proporciona datos críticos para la detección temprana de anomalías cardíacas.</p>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h2>Información del Paciente</h2>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Nombre: {{paciente.nombre}} {{paciente.apellido}}</h5>
+                    <p class="card-text">Sexo: {{paciente.sexo}}</p>
+                    <p class="card-text">Peso: {{paciente.peso}}</p>
+                    <p class="card-text">Historial Médico: Hipertensión, Diabetes</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>Alertas de Salud</h2>
+            <div class="alert alert-danger" role="alert">
+                <strong>Alerta!</strong> Ritmo cardíaco irregular detectado.
+            </div>
+            <div class="alert alert-warning" role="alert">
+                <strong>Precaución!</strong> Nivel de oxígeno bajo.
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h2>Gráficos en Tiempo Real</h2>
+            <div class="card">
+                <div class="card-body">
+                    <!-- Aquí se insertaría el gráfico, por ejemplo usando Chart.js -->
+                    <canvas id="heartRateChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

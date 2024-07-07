@@ -14,11 +14,13 @@ import { PaginatorComponent } from './paginator/paginator.component'
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeES from '@Angular/common/locales/es-MX';
+import { HomeComponent } from './home/home.component';
 
 registerLocaleData(localeES, 'es');
 
 const routes: Routes = [
-  { path: '', redirectTo: '/clientes', pathMatch: 'full' },
+  { path: 'info', component: HomeComponent },
+  { path: 'info/:id', component: HomeComponent },
   //{ path: 'directivas', component: DirectivaComponent },
   { path: 'pacientes', component: PacientesComponent },
   { path: 'pacientes/page/:page', component: PacientesComponent },
@@ -33,7 +35,8 @@ const routes: Routes = [
     FooterComponent,
     PacientesComponent,
     FormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
