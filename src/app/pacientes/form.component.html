@@ -71,7 +71,7 @@
             <div class="mb-3">
                 <div class="d-grid">
                     <button class="btn btn-primary" role="button" (click)="create()"
-                        *ngIf="!paciente.id; else elseBlock">Crear</button>
+                        *ngIf="!paciente.id; else elseBlock">Registrar</button>
                     <ng-template #elseBlock>
                         <button class="btn btn-primary" role="button" (click)="update()">Editar</button>
                     </ng-template>
