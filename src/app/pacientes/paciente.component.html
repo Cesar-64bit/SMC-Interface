@@ -1,0 +1,57 @@
+<div class="card border-primary mb-3">
+    <div class="card-header bg-primary text-white">
+        <h5>Listado de Pacientes</h5>
+    </div>
+    <div class="card-body">
+        <div class="mb-3 d-flex justify-content-end">
+            <button class="btn btn-primary" type="button" [routerLink]="['/pacientes/form']">Crear Paciente</button>
+        </div>
+
+
+
+        <div *ngIf="pacientes?.length == 0" class="alert alert-info">
+            No hay registros en la base de datos.
+        </div>
+
+        <div *ngIf="pacientes?.length > 0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Sexo</th>
+                            <th>Peso</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let paciente of pacientes">
+                            <td>{{paciente.id}}</td>
+                            <td>{{paciente.nombre}}</td>
+                            <td>{{paciente.apellido}}</td>
+                            <td>{{paciente.sexo}}</td>
+                            <td>{{paciente.peso}}</td>
+                            <td>{{paciente.fechaNacimiento}}</td>
+                            <td>{{paciente.telefono}}</td>
+                            <td>{{paciente.email}}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button type="button" [routerLink]="['/pacientes/form', paciente.id]"
+                                        class="btn btn-primary btn-sm">Editar</button>
+                                    <button type="button" (click)="delete(paciente)"
+                                        class="btn btn-danger btn-sm">Eliminar</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
+            </div>
+        </div>
+    </div>
+</div>

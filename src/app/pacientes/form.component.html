@@ -1,0 +1,82 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+    <li *ngFor="let err of errores">
+        {{ err }}
+    </li>
+</ul>
+
+<div class="card border-primary mb-3">
+    <div class="card-header bg-primary text-white">
+        <h5>{{ titulo }}</h5>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" [(ngModel)]="paciente.nombre" name="nombre" #nombre="ngModel">
+                <div class="text-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                    <div *ngIf="nombre.errors.required">
+                        Nombre es requerido
+                    </div>
+                    <div *ngIf="nombre.errors.minlength">
+                        Nombre debe tener al menos 4 caracteres
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text" class="form-control" [(ngModel)]="paciente.apellido" name="apellido"
+                    #apellido="ngModel">
+                <div class="text-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                    <div *ngIf="apellido.errors.required">
+                        Apellido es requerido
+                    </div>
+                    <div *ngIf="apellido.errors.minlength">
+                        Apellido debe tener al menos 4 caracteres
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="sexo" class="form-label">Sexo</label>
+                <select class="form-select" [(ngModel)]="paciente.sexo" name="sexo">
+                    <option value="Hombre">Hombre</option>
+                    <option value="Mujer">Mujer</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="peso" class="form-label">Peso</label>
+                <input type="text" class="form-control" [(ngModel)]="paciente.peso" name="peso">
+            </div>
+
+            <div class="mb-3">
+                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                <!-- Cambio de tipo de input a "date" -->
+                <input type="date" class="form-control" [(ngModel)]="paciente.fechaNacimiento" name="fechaNacimiento"
+                    required>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" [(ngModel)]="paciente.telefono" name="telefono">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" [(ngModel)]="paciente.email" name="email">
+            </div>
+
+            <div class="mb-3">
+                <div class="d-grid">
+                    <button class="btn btn-primary" role="button" (click)="create()"
+                        *ngIf="!paciente.id; else elseBlock">Crear</button>
+                    <ng-template #elseBlock>
+                        <button class="btn btn-primary" role="button" (click)="update()">Editar</button>
+                    </ng-template>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
