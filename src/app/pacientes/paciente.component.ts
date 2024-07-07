@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: 'app-pacientes',
     templateUrl: './paciente.component.html',
+    styleUrls: ['./paciente.component.css']
 })
 export class PacientesComponent {
 

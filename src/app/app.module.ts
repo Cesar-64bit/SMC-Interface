@@ -15,10 +15,13 @@ import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeES from '@Angular/common/locales/es-MX';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 
 registerLocaleData(localeES, 'es');
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   { path: 'info', component: HomeComponent },
   { path: 'info/:id', component: HomeComponent },
   //{ path: 'directivas', component: DirectivaComponent },
@@ -36,7 +39,8 @@ const routes: Routes = [
     PacientesComponent,
     FormComponent,
     PaginatorComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

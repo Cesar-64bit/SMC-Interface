@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow-lg" style="width: 24rem;">
+        <div class="card-header bg-primary text-white text-center">
+            <h4>Iniciar Sesión</h4>
+        </div>
+        <div class="card-body p-4">
+            <form (ngSubmit)="onSubmit()">
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <input type="text" class="form-control" placeholder="Usuario" [(ngModel)]="loginData.username"
+                        name="username" required>
+                    <div class="invalid-feedback" *ngIf="!loginData.username">
+                        Usuario es requerido
+                    </div>
+                </div>
+
+                <div class="mb-3 input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input type="password" class="form-control" placeholder="Contraseña"
+                        [(ngModel)]="loginData.password" name="password" required>
+                    <div class="invalid-feedback" *ngIf="!loginData.password">
+                        Contraseña es requerida
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary"
+                        [disabled]="!loginData.username || !loginData.password">Ingresar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
