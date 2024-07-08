@@ -56,4 +56,18 @@ export class FormComponent {
                 }
             );
     }
+
+    mostrarDiagnosticos: boolean = false;
+
+    toggleDiagnosticos() {
+        this.mostrarDiagnosticos = !this.mostrarDiagnosticos;
+    }
+
+    diagnostico: any = {
+        enfermedadesCronicas: '',
+        alcohol: '',
+        tabaco: '',
+        alimentacion: '',
+        habitos: ''
+    };
 }
