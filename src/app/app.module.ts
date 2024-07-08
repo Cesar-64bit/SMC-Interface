@@ -16,6 +16,7 @@ import { registerLocaleData } from '@angular/common';
 import localeES from '@Angular/common/locales/es-MX';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { HeartRateChartComponent } from './heart-rate-chart/heart-rate-chart.component';
 
 registerLocaleData(localeES, 'es');
 
@@ -40,7 +41,8 @@ const routes: Routes = [
     FormComponent,
     PaginatorComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    HeartRateChartComponent,
   ],
   imports: [
     BrowserModule,

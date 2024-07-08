@@ -11,6 +11,12 @@ import { ActivatedRoute } from '@angular/router';
 export class HomeComponent {
   public paciente: Paciente = new Paciente();
 
+  showChart: boolean = false;
+
+  toggleChart(): void {
+    this.showChart = !this.showChart;
+  }
+
   constructor(private pacienteService: PacienteService, private activateRoute: ActivatedRoute) {
   }
 

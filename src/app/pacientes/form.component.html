@@ -67,29 +67,31 @@
                 <div class="card-body" [ngClass]="{ 'd-none': !mostrarDiagnosticos }">
                     <div class="mb-3">
                         <label for="enfermedadesCronicas" class="form-label">Enfermedades Crónicas</label>
-                        <input type="text" class="form-control" [(ngModel)]="diagnostico.enfermedadesCronicas"
+                        <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.enfermedadCronica"
                             name="enfermedadesCronicas">
                     </div>
 
                     <div class="mb-3">
                         <label for="alcohol" class="form-label">Consumo de Alcohol</label>
-                        <input type="text" class="form-control" [(ngModel)]="diagnostico.alcohol" name="alcohol">
+                        <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.alcohol"
+                            name="alcohol">
                     </div>
 
                     <div class="mb-3">
                         <label for="tabaco" class="form-label">Consumo de Tabaco</label>
-                        <input type="text" class="form-control" [(ngModel)]="diagnostico.tabaco" name="tabaco">
+                        <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.tabaco" name="tabaco">
                     </div>
 
                     <div class="mb-3">
                         <label for="alimentacion" class="form-label">Alimentación</label>
-                        <input type="text" class="form-control" [(ngModel)]="diagnostico.alimentacion"
+                        <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.alimentacion"
                             name="alimentacion">
                     </div>
 
                     <div class="mb-3">
                         <label for="habitos" class="form-label">Hábitos</label>
-                        <input type="text" class="form-control" [(ngModel)]="diagnostico.habitos" name="habitos">
+                        <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.habitos"
+                            name="habitos">
                     </div>
                 </div>
             </div>

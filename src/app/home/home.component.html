@@ -14,7 +14,11 @@
                     <h5 class="card-title">Nombre: {{paciente.nombre}} {{paciente.apellido}}</h5>
                     <p class="card-text">Sexo: {{paciente.sexo}}</p>
                     <p class="card-text">Peso: {{paciente.peso}}</p>
-                    <p class="card-text">Historial Médico: Hipertensión, Diabetes</p>
+                    <p class="card-text">Enfermedades Crónicas: {{paciente.diagnostico.enfermedadCronica}}</p>
+                    <p class="card-text">Consumo de Alcohol : {{paciente.diagnostico.alcohol}}</p>
+                    <p class="card-text">Consumo de Tabaco: {{paciente.diagnostico.tabaco}}</p>
+                    <p class="card-text">Alimentación: {{paciente.diagnostico.alimentacion}}</p>
+                    <p class="card-text">Hábitos: {{paciente.diagnostico.habitos}}</p>
                 </div>
             </div>
         </div>
@@ -26,16 +30,16 @@
             <div class="alert alert-warning" role="alert">
                 <strong>Precaución!</strong> Nivel de oxígeno bajo.
             </div>
+            <button class="btn btn-primary mt-3" (click)="toggleChart()">Ver gráfico</button>
         </div>
     </div>
 
-    <div class="row mt-5">
+    <div class="row mt-5" *ngIf="showChart">
         <div class="col-md-12">
             <h2>Gráficos en Tiempo Real</h2>
             <div class="card">
                 <div class="card-body">
-                    <!-- Aquí se insertaría el gráfico, por ejemplo usando Chart.js -->
-                    <canvas id="heartRateChart"></canvas>
+                    <app-heart-rate-chart class="chart-container"></app-heart-rate-chart>
                 </div>
             </div>
         </div>

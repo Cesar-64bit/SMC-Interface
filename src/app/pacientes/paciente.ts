@@ -1,3 +1,11 @@
+export class Diagnostico {
+    enfermedadCronica: string;
+    alcohol: string;
+    tabaco: string;
+    alimentacion: string;
+    habitos: string;
+}
+
 export class Paciente {
     id: number;
     nombre: string;
@@ -7,4 +15,5 @@ export class Paciente {
     fechaNacimiento: string;
     telefono: string;
     email: string;
+    diagnostico: Diagnostico = new Diagnostico();
 }

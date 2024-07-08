@@ -33,7 +33,7 @@ export class FormComponent {
         this.pacienteService.create(this.paciente)
             .subscribe(paciente => {
                 this.router.navigate(['/pacientes']);
-                swal.fire('Nuevo Paciente', `Paciente ${paciente.nombre} creado con éxito!`, 'success');
+                swal.fire('Nuevo Paciente', `Paciente ${paciente.nombre} agregado con éxito!`, 'success');
             },
                 err => {
                     this.errores = err.error.errors as string[];
@@ -62,12 +62,4 @@ export class FormComponent {
     toggleDiagnosticos() {
         this.mostrarDiagnosticos = !this.mostrarDiagnosticos;
     }
-
-    diagnostico: any = {
-        enfermedadesCronicas: '',
-        alcohol: '',
-        tabaco: '',
-        alimentacion: '',
-        habitos: ''
-    };
 }
