@@ -57,9 +57,9 @@ export class FormComponent {
             );
     }
 
-    mostrarDiagnosticos: boolean = false;
+    mostrarIndicadores: boolean = false;
 
-    toggleDiagnosticos() {
-        this.mostrarDiagnosticos = !this.mostrarDiagnosticos;
+    toggleIndicadores() {
+        this.mostrarIndicadores = !this.mostrarIndicadores;
     }
 }

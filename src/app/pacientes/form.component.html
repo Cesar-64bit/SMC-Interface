@@ -59,12 +59,12 @@
                 <input type="text" class="form-control" [(ngModel)]="paciente.email" name="email">
             </div>
 
-            <!-- Diagnósticos del Paciente -->
+            <!-- Indicadores del Paciente -->
             <div class="card border-secondary mb-3">
-                <div class="card-header bg-secondary text-white" (click)="toggleDiagnosticos()">
-                    <h5>Diagnósticos</h5>
+                <div class="card-header bg-secondary text-white" (click)="toggleIndicadores()">
+                    <h5>Indicadores</h5>
                 </div>
-                <div class="card-body" [ngClass]="{ 'd-none': !mostrarDiagnosticos }">
+                <div class="card-body" [ngClass]="{ 'd-none': !mostrarIndicadores }">
                     <div class="mb-3">
                         <label for="enfermedadesCronicas" class="form-label">Enfermedades Crónicas</label>
                         <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.enfermedadCronica"
@@ -73,13 +73,26 @@
 
                     <div class="mb-3">
                         <label for="alcohol" class="form-label">Consumo de Alcohol</label>
-                        <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.alcohol"
-                            name="alcohol">
+                        <select class="form-select" [(ngModel)]="paciente.diagnostico.alcohol" name="alcohol">
+                            <option value=" Si">Si</option>
+                            <option value="No">No</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
                         <label for="tabaco" class="form-label">Consumo de Tabaco</label>
-                        <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.tabaco" name="tabaco">
+                        <select class="form-select" [(ngModel)]="paciente.diagnostico.tabaco" name="tabaco">
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="droga" class="form-label">Consumo de Drogas</label>
+                        <select class="form-select" [(ngModel)]="paciente.diagnostico.droga" name="droga">
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
@@ -90,8 +103,11 @@
 
                     <div class="mb-3">
                         <label for="habitos" class="form-label">Hábitos</label>
-                        <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.habitos"
-                            name="habitos">
+                        <select class="form-select" [(ngModel)]="paciente.diagnostico.habitos" name="habitos">
+                            <option value="Deportista">Deportista</option>
+                            <option value="Calistenia">Calistenia</option>
+                            <option value="Gimnasio">Gimnasio</option>
+                        </select>
                     </div>
                 </div>
             </div>

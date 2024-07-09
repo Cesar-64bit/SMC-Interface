@@ -2,6 +2,7 @@ export class Diagnostico {
     enfermedadCronica: string;
     alcohol: string;
     tabaco: string;
+    droga: string;
     alimentacion: string;
     habitos: string;
 }
