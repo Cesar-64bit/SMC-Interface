@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <div class="jumbotron text-center bg-light p-5 rounded">
+    <div class="jumbotron text-center bg-light p-5 rounded shadow-sm">
         <h1 class="display-4">Sistema de Monitoreo Cardíaco</h1>
         <p class="lead">Monitoreo en tiempo real del ritmo cardíaco de sus pacientes.</p>
         <hr class="my-4">
@@ -8,37 +8,87 @@
 
     <div class="row mt-5">
         <div class="col-md-6">
-            <h2>Información del Paciente</h2>
-            <div class="card mb-3">
+            <h2 class="mb-4">Información del Paciente</h2>
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user mr-2"></i>{{paciente.nombre}} {{paciente.apellido}}
+                    </h5>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Nombre: {{paciente.nombre}} {{paciente.apellido}}</h5>
-                    <p class="card-text">Sexo: {{paciente.sexo}}</p>
-                    <p class="card-text">Peso: {{paciente.peso}}</p>
-                    <p class="card-text">Enfermedades Crónicas: {{paciente.diagnostico.enfermedadCronica}}</p>
-                    <p class="card-text">Consumo de Alcohol : {{paciente.diagnostico.alcohol}}</p>
-                    <p class="card-text">Consumo de Tabaco: {{paciente.diagnostico.tabaco}}</p>
-                    <p class="card-text">Consumo de Drogas: {{paciente.diagnostico.droga}}</p>
-                    <p class="card-text">Alimentación: {{paciente.diagnostico.alimentacion}}</p>
-                    <p class="card-text">Hábitos: {{paciente.diagnostico.habitos}}</p>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <p class="card-text">
+                                <strong>Sexo:</strong> {{paciente.sexo}}
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="card-text">
+                                <strong>Peso:</strong> {{paciente.peso}} kg
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <p class="card-text">
+                                <strong>Enfermedades Crónicas:</strong> {{paciente.diagnostico.enfermedadCronica}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <p class="card-text">
+                                <strong>Consumo de Alcohol:</strong> {{paciente.diagnostico.alcohol}}
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="card-text">
+                                <strong>Consumo de Tabaco:</strong> {{paciente.diagnostico.tabaco}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <p class="card-text">
+                                <strong>Consumo de Drogas:</strong> {{paciente.diagnostico.droga}}
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="card-text">
+                                <strong>Alimentación:</strong> {{paciente.diagnostico.alimentacion}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="card-text">
+                                <strong>Hábitos:</strong> {{paciente.diagnostico.habitos}}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <h2>Alertas de Salud</h2>
-            <div class="alert alert-danger" role="alert">
+            <h2 class="mb-4">Alertas de Salud</h2>
+            <div class="alert alert-danger shadow-sm" role="alert">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
                 <strong>Alerta!</strong> Ritmo cardíaco irregular detectado.
             </div>
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-warning shadow-sm" role="alert">
+                <i class="fas fa-exclamation-circle mr-2"></i>
                 <strong>Precaución!</strong> Nivel de oxígeno bajo.
             </div>
-            <button class="btn btn-primary mt-3" (click)="toggleChart()">Ver gráfico</button>
+            <button class="btn btn-primary mt-3" (click)="toggleChart()">
+                <i class="fas fa-chart-line mr-2"></i>Ver gráfico
+            </button>
         </div>
     </div>
 
     <div class="row mt-5" *ngIf="showChart">
         <div class="col-md-12">
             <h2>Gráficos en Tiempo Real</h2>
-            <div class="card">
+            <div class="card shadow-sm">
                 <div class="card-body">
                     <app-heart-rate-chart class="chart-container"></app-heart-rate-chart>
                 </div>
