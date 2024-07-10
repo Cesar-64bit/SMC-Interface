@@ -11,52 +11,61 @@
     <div class="card-body">
         <form>
             <!-- Datos del Paciente -->
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" [(ngModel)]="paciente.nombre" name="nombre" #nombre="ngModel">
-                <div class="text-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
-                    <div *ngIf="nombre.errors.required">Nombre es requerido</div>
-                    <div *ngIf="nombre.errors.minlength">Nombre debe tener al menos 4 caracteres</div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" [(ngModel)]="paciente.nombre" name="nombre"
+                        #nombre="ngModel">
+                    <div class="text-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                        <div *ngIf="nombre.errors.required">Nombre es requerido</div>
+                        <div *ngIf="nombre.errors.minlength">Nombre debe tener al menos 4 caracteres</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" [(ngModel)]="paciente.apellido" name="apellido"
+                        #apellido="ngModel">
+                    <div class="text-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                        <div *ngIf="apellido.errors.required">Apellido es requerido</div>
+                        <div *ngIf="apellido.errors.minlength">Apellido debe tener al menos 4 caracteres</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" [(ngModel)]="paciente.apellido" name="apellido"
-                    #apellido="ngModel">
-                <div class="text-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
-                    <div *ngIf="apellido.errors.required">Apellido es requerido</div>
-                    <div *ngIf="apellido.errors.minlength">Apellido debe tener al menos 4 caracteres</div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="sexo" class="form-label">Sexo</label>
+                    <select class="form-select" [(ngModel)]="paciente.sexo" name="sexo">
+                        <option value="Hombre">Hombre</option>
+                        <option value="Mujer">Mujer</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="peso" class="form-label">Peso</label>
+                    <input type="text" class="form-control" [(ngModel)]="paciente.peso" name="peso">
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label for="sexo" class="form-label">Sexo</label>
-                <select class="form-select" [(ngModel)]="paciente.sexo" name="sexo">
-                    <option value="Hombre">Hombre</option>
-                    <option value="Mujer">Mujer</option>
-                </select>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" [(ngModel)]="paciente.fechaNacimiento"
+                        name="fechaNacimiento" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" [(ngModel)]="paciente.telefono" name="telefono">
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="peso" class="form-label">Peso</label>
-                <input type="text" class="form-control" [(ngModel)]="paciente.peso" name="peso">
-            </div>
-
-            <div class="mb-3">
-                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-                <input type="date" class="form-control" [(ngModel)]="paciente.fechaNacimiento" name="fechaNacimiento"
-                    required>
-            </div>
-
-            <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" [(ngModel)]="paciente.telefono" name="telefono">
-            </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" [(ngModel)]="paciente.email" name="email">
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" class="form-control" [(ngModel)]="paciente.email" name="email">
+                </div>
             </div>
 
             <!-- Indicadores del Paciente -->
@@ -65,49 +74,70 @@
                     <h5>Indicadores</h5>
                 </div>
                 <div class="card-body" [ngClass]="{ 'd-none': !mostrarIndicadores }">
-                    <div class="mb-3">
-                        <label for="enfermedadesCronicas" class="form-label">Enfermedades Crónicas</label>
-                        <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.enfermedadCronica"
-                            name="enfermedadesCronicas">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="enfermedadesCronicas" class="form-label">Enfermedades Crónicas</label>
+                            <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.enfermedadCronica"
+                                name="enfermedadesCronicas">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="alcohol" class="form-label">Consumo de Alcohol</label>
+                            <select class="form-select" [(ngModel)]="paciente.diagnostico.alcohol" name="alcohol">
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="alcohol" class="form-label">Consumo de Alcohol</label>
-                        <select class="form-select" [(ngModel)]="paciente.diagnostico.alcohol" name="alcohol">
-                            <option value=" Si">Si</option>
-                            <option value="No">No</option>
-                        </select>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="tabaco" class="form-label">Consumo de Tabaco</label>
+                            <select class="form-select" [(ngModel)]="paciente.diagnostico.tabaco" name="tabaco">
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="droga" class="form-label">Consumo de Drogas</label>
+                            <select class="form-select" [(ngModel)]="paciente.diagnostico.droga" name="droga">
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="tabaco" class="form-label">Consumo de Tabaco</label>
-                        <select class="form-select" [(ngModel)]="paciente.diagnostico.tabaco" name="tabaco">
-                            <option value="Si">Si</option>
-                            <option value="No">No</option>
-                        </select>
+                    <!-- Campo adicional para especificar drogas -->
+                    <div class="row mb-3" *ngIf="paciente.diagnostico.droga === 'Si'">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="especificarDrogas" class="form-label text-danger">Especificar Drogas <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control border-danger"
+                                    [(ngModel)]="paciente.diagnostico.tipoDroga" name="tipoDroga"
+                                    placeholder="Por favor especifique las drogas que utiliza">
+                                <small class="form-text text-muted">Este campo es obligatorio si ha seleccionado "Si" en
+                                    Consumo de Drogas.</small>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="droga" class="form-label">Consumo de Drogas</label>
-                        <select class="form-select" [(ngModel)]="paciente.diagnostico.droga" name="droga">
-                            <option value="Si">Si</option>
-                            <option value="No">No</option>
-                        </select>
-                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="alimentacion" class="form-label">Alimentación</label>
+                            <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.alimentacion"
+                                name="alimentacion">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="alimentacion" class="form-label">Alimentación</label>
-                        <input type="text" class="form-control" [(ngModel)]="paciente.diagnostico.alimentacion"
-                            name="alimentacion">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="habitos" class="form-label">Hábitos</label>
-                        <select class="form-select" [(ngModel)]="paciente.diagnostico.habitos" name="habitos">
-                            <option value="Deportista">Deportista</option>
-                            <option value="Calistenia">Calistenia</option>
-                            <option value="Gimnasio">Gimnasio</option>
-                        </select>
+                        <div class="col-md-6">
+                            <label for="habitos" class="form-label">Hábitos</label>
+                            <select class="form-select" [(ngModel)]="paciente.diagnostico.habitos" name="habitos">
+                                <option value="Deportista">Deportista</option>
+                                <option value="Calistenia">Calistenia</option>
+                                <option value="Gimnasio">Gimnasio</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>

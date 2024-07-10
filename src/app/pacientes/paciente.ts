@@ -3,6 +3,7 @@ export class Diagnostico {
     alcohol: string;
     tabaco: string;
     droga: string;
+    tipoDroga: string;
     alimentacion: string;
     habitos: string;
 }
