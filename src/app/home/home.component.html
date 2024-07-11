@@ -15,73 +15,78 @@
                         <i class="fas fa-user mr-2"></i>{{paciente.nombre}} {{paciente.apellido}}
                     </h5>
                 </div>
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <p class="card-text">
-                                <strong>Sexo:</strong> {{paciente.sexo}}
-                            </p>
-                        </div>
-                        <div class="col-6">
-                            <p class="card-text">
-                                <strong>Peso:</strong> {{paciente.peso}} kg
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <p class="card-text">
-                                <strong>Enfermedades Crónicas:</strong> {{paciente.diagnostico.enfermedadCronica}}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <p class="card-text">
-                                <strong>Consumo de Alcohol:</strong> {{paciente.diagnostico.alcohol}}
-                            </p>
-                        </div>
-                        <div class="col-6">
-                            <p class="card-text">
-                                <strong>Consumo de Tabaco:</strong> {{paciente.diagnostico.tabaco}}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <p class="card-text">
-                                <strong>Consumo de Drogas:</strong> {{paciente.diagnostico.droga}}
-                            </p>
-                        </div>
-                        <div class="col-6">
-                            <p class="card-text">
-                                <strong>Alimentación:</strong> {{paciente.diagnostico.alimentacion}}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="card-text">
-                                <strong>Hábitos:</strong> {{paciente.diagnostico.habitos}}
-                            </p>
-                        </div>
-                    </div>
+                <div class="card-body p-4">
+                    <table class="table table-borderless table-striped">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Sexo</th>
+                                <td>{{paciente.sexo}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Peso</th>
+                                <td>{{paciente.peso}} kg</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Enfermedades Crónicas</th>
+                                <td>{{paciente.diagnostico.enfermedadCronica}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Consumo de Alcohol</th>
+                                <td>{{paciente.diagnostico.alcohol}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Consumo de Tabaco</th>
+                                <td>{{paciente.diagnostico.tabaco}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Consumo de Drogas</th>
+                                <td>
+                                    {{paciente.diagnostico.droga}}
+                                    <div *ngIf="paciente.diagnostico.droga === 'Si'" class="mt-2 highlight">
+                                        <label for="detalleDrogas" class="form-label text-danger">Especificar
+                                            Drogas:</label>
+                                        <input type="text" id="detalleDrogas" class="form-control border-danger"
+                                            [(ngModel)]="paciente.diagnostico.detalleDrogas"
+                                            placeholder="Ingrese las drogas que consume">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Alimentación</th>
+                                <td>{{paciente.diagnostico.alimentacion}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Hábitos</th>
+                                <td>{{paciente.diagnostico.habitos}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <h2 class="mb-4">Alertas de Salud</h2>
-            <div class="alert alert-danger shadow-sm" role="alert">
+            <div class="alert alert-danger shadow-sm d-flex align-items-center" role="alert">
                 <i class="fas fa-exclamation-triangle mr-2"></i>
-                <strong>Alerta!</strong> Ritmo cardíaco irregular detectado.
+                <span><strong>Alerta!</strong> Ritmo cardíaco irregular detectado.</span>
             </div>
-            <div class="alert alert-warning shadow-sm" role="alert">
+            <div class="alert alert-warning shadow-sm d-flex align-items-center" role="alert">
                 <i class="fas fa-exclamation-circle mr-2"></i>
-                <strong>Precaución!</strong> Nivel de oxígeno bajo.
+                <span><strong>Precaución!</strong> Nivel de oxígeno bajo.</span>
             </div>
             <button class="btn btn-primary mt-3" (click)="toggleChart()">
                 <i class="fas fa-chart-line mr-2"></i>Ver gráfico
             </button>
+
+            <div class="mt-4">
+                <h2 class="mb-3">Observaciones</h2>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Escribir observación..."
+                        [(ngModel)]="nuevaObservacion">
+                    <button class="btn btn-outline-secondary" type="button"
+                        (click)="agregarObservacion()">Agregar</button>
+                </div>
+            </div>
         </div>
     </div>
 

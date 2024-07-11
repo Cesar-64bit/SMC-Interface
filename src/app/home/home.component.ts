@@ -32,4 +32,21 @@ export class HomeComponent {
       }
     });
   }
+
+  nuevaObservacion = '';
+  observaciones = [
+    { texto: 'Paciente se queja de dolor en el pecho', fecha: new Date() },
+    { texto: 'Recomendar más ejercicio físico', fecha: new Date() }
+  ];
+
+  agregarObservacion() {
+    if (this.nuevaObservacion.trim() !== '') {
+      this.observaciones.push({
+        texto: this.nuevaObservacion,
+        fecha: new Date()
+      });
+      this.nuevaObservacion = '';
+    }
+  }
+
 }
