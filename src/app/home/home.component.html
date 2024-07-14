@@ -42,13 +42,6 @@
                                 <th scope="row">Consumo de Drogas</th>
                                 <td>
                                     {{paciente.diagnostico.droga}}
-                                    <div *ngIf="paciente.diagnostico.droga === 'Si'" class="mt-2 highlight">
-                                        <label for="detalleDrogas" class="form-label text-danger">Especificar
-                                            Drogas:</label>
-                                        <input type="text" id="detalleDrogas" class="form-control border-danger"
-                                            [(ngModel)]="paciente.diagnostico.detalleDrogas"
-                                            placeholder="Ingrese las drogas que consume">
-                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -70,23 +63,21 @@
                 <i class="fas fa-exclamation-triangle mr-2"></i>
                 <span><strong>Alerta!</strong> Ritmo cardíaco irregular detectado.</span>
             </div>
-            <div class="alert alert-warning shadow-sm d-flex align-items-center" role="alert">
-                <i class="fas fa-exclamation-circle mr-2"></i>
-                <span><strong>Precaución!</strong> Nivel de oxígeno bajo.</span>
-            </div>
-            <button class="btn btn-primary mt-3" (click)="toggleChart()">
-                <i class="fas fa-chart-line mr-2"></i>Ver gráfico
-            </button>
-
             <div class="mt-4">
                 <h2 class="mb-3">Observaciones</h2>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Escribir observación..."
-                        [(ngModel)]="nuevaObservacion">
-                    <button class="btn btn-outline-secondary" type="button"
-                        (click)="agregarObservacion()">Agregar</button>
+                        [(ngModel)]="observaciones.observacion">
+                    <button class="btn btn-outline-secondary" type="button" (click)="create()">Agregar</button>
                 </div>
             </div>
+            <button class="btn btn-success mt-3 custom-margin">
+                <i class="fas fa-chart-line mr-2"></i>Ver Historial
+            </button>
+            <button class="btn btn-primary mt-3 custom-margin" (click)="toggleChart()">
+                <i class="fas fa-chart-line mr-2"></i>Ver gráfico
+            </button>
+
         </div>
     </div>
 

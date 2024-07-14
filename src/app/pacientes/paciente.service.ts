@@ -48,7 +48,6 @@ export class PacienteService {
     return this.http.post(this.urlEndPoint, paciente, { headers: this.httpHeaders }).pipe(
       map((response: any) => response.paciente as Paciente),
       catchError(e => {
-
         if (e.status == 400) {
           return throwError(e);
         }

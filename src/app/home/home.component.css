@@ -25,3 +25,7 @@ h1 {
 .alert {
     margin-bottom: 1rem;
 }
+
+.custom-margin {
+    margin-right: 10px;
+}

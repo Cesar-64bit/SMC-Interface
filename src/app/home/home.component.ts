@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Paciente } from '../pacientes/paciente';
 import { PacienteService } from '../pacientes/paciente.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ObservacionesService } from './observaciones.service';
+import { Observaciones } from './observaciones';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent {
   public paciente: Paciente = new Paciente();
+  public observaciones: Observaciones = new Observaciones();
+  public errores: string[];
 
   showChart: boolean = false;
 
@@ -17,7 +22,11 @@ export class HomeComponent {
     this.showChart = !this.showChart;
   }
 
-  constructor(private pacienteService: PacienteService, private activateRoute: ActivatedRoute) {
+  constructor(
+    private pacienteService: PacienteService,
+    private observacionesService: ObservacionesService,
+    private router: Router,
+    private activateRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -33,20 +42,26 @@ export class HomeComponent {
     });
   }
 
-  nuevaObservacion = '';
-  observaciones = [
-    { texto: 'Paciente se queja de dolor en el pecho', fecha: new Date() },
-    { texto: 'Recomendar más ejercicio físico', fecha: new Date() }
-  ];
+  public create(): void {
+    // Asegúrate de que paciente sea un objeto completo
+    this.observaciones.paciente = {
+      id: this.paciente.id
+      // Puedes agregar más campos si es necesario
+    } as Paciente;
 
-  agregarObservacion() {
-    if (this.nuevaObservacion.trim() !== '') {
-      this.observaciones.push({
-        texto: this.nuevaObservacion,
-        fecha: new Date()
-      });
-      this.nuevaObservacion = '';
-    }
+    console.log(this.observaciones.paciente);
+    console.log(this.observaciones);
+
+    this.observacionesService.create(this.observaciones).subscribe(
+      observaciones => {
+        this.router.navigate(['/info']);
+        swal.fire('Comentario añadido con éxito!', 'success');
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Código del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
+      }
+    );
   }
-
 }
