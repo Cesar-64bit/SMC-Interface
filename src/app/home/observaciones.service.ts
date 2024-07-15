@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observaciones } from './observaciones';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import swal from 'sweetalert2';
@@ -14,6 +14,15 @@ export class ObservacionesService {
     private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
     constructor(private http: HttpClient) { }
+
+    getByPacienteId(id: number): Observable<Observaciones[]> {
+        return this.http.get<Observaciones[]>(`${this.urlEndPoint}/${id}`).pipe(
+            catchError(e => {
+                console.error('Error fetching observaciones', e);
+                return of([] as Observaciones[]);
+            })
+        );
+    }
 
     create(observaciones: Observaciones): Observable<Observaciones> {
         return this.http.post(this.urlEndPoint, observaciones, { headers: this.httpHeaders }).pipe(

@@ -28,7 +28,7 @@ export class PacienteService {
       map((response: any) => {
         (response.content as Paciente[]).map(paciente => {
           let datePipe = new DatePipe('es');
-          paciente.fechaNacimiento = datePipe.transform(paciente.fechaNacimiento, 'EEEE dd, MMMM yyyy');//formatDate(paciente.fechaNacimiento, 'dd-MM-yyyy', 'en-US');
+          paciente.fechaNacimiento = datePipe.transform(paciente.fechaNacimiento, 'EEEE dd, MMMM yyyy');
 
           return paciente;
         });

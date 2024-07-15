@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ObservacionesService } from './observaciones.service';
 import { Observaciones } from './observaciones';
 import swal from 'sweetalert2';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ import swal from 'sweetalert2';
 })
 export class HomeComponent {
   public paciente: Paciente = new Paciente();
-  public observaciones: Observaciones = new Observaciones();
+  public observaciones: Observaciones[] = [];  // Cambiar a array
+  public nuevaObservacion: Observaciones = new Observaciones();  // Para agregar nuevas observaciones
   public errores: string[];
 
   showChart: boolean = false;
@@ -42,17 +44,28 @@ export class HomeComponent {
     });
   }
 
+  public getObservaciones(): void {
+    this.activateRoute.params.subscribe(params => {
+      let id = params['id'];
+      if (id) {
+        this.observacionesService.getByPacienteId(id).subscribe(observaciones => {
+          this.observaciones = observaciones;  // Asigna el array de observaciones
+          console.log(observaciones);
+          this.showHistorialModal();
+        });
+      }
+    });
+  }
+
   public create(): void {
-    // Asegúrate de que paciente sea un objeto completo
-    this.observaciones.paciente = {
+    this.nuevaObservacion.paciente = {
       id: this.paciente.id
-      // Puedes agregar más campos si es necesario
     } as Paciente;
 
-    console.log(this.observaciones.paciente);
-    console.log(this.observaciones);
+    console.log(this.nuevaObservacion.paciente);
+    console.log(this.nuevaObservacion);
 
-    this.observacionesService.create(this.observaciones).subscribe(
+    this.observacionesService.create(this.nuevaObservacion).subscribe(
       observaciones => {
         this.router.navigate(['/info']);
         swal.fire('Comentario añadido con éxito!', 'success');
@@ -63,5 +76,13 @@ export class HomeComponent {
         console.error(err.error.errors);
       }
     );
+  }
+
+  private showHistorialModal(): void {
+    const modalElement = document.getElementById('historialModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
   }
 }
