@@ -19,8 +19,6 @@ export class PacienteService {
   getPacientes(page: number): Observable<any> {
     return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
       tap((response: any) => {
-        console.log('PacienteService: tap 1');
-
         (response.content as Paciente[]).forEach(paciente => {
           console.log(paciente.nombre)
         })
@@ -35,8 +33,6 @@ export class PacienteService {
         return response;
       }),
       tap(response => {
-        console.log('PacienteService: tap 2');
-
         (response.content as Paciente[]).forEach(paciente => {
           console.log(paciente.nombre)
         })

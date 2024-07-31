@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <div class="jumbotron text-center bg-light p-5 rounded shadow-sm">
+        <h1 class="display-4">Historial de Observaciones</h1>
+        <p class="lead">Aquí puede consultar el historial completo de observaciones realizadas para cada paciente.</p>
+        <hr class="my-4">
+        <p>La tabla a continuación muestra las observaciones registradas, organizadas por fecha. Utilice las opciones de
+            paginación para navegar entre las distintas entradas y obtener un resumen detallado de cada observación.</p>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col">Observación</th>
+                    <th scope="col">Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let observacion of observaciones | paginate: { itemsPerPage: pageSize, currentPage: page }">
+                    <td>{{observacion.observacion}}</td>
+                    <td>{{observacion.fecha | date:'short'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <pagination-controls (pageChange)="page = $event" class="d-flex justify-content-center mt-3"></pagination-controls>
+</div>

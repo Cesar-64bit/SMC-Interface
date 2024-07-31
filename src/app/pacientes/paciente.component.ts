@@ -27,7 +27,6 @@ export class PacientesComponent {
 
             this.pacienteService.getPacientes(page).pipe(
                 tap(response => {
-                    console.log('PacienteService: tap 3');
 
                     (response.content as Paciente[]).forEach(paciente => {
                         console.log(paciente.nombre)

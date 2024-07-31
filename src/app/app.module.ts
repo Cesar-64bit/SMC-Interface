@@ -17,6 +17,8 @@ import localeES from '@Angular/common/locales/es-MX';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { HeartRateChartComponent } from './heart-rate-chart/heart-rate-chart.component';
+import { ObservacionesComponent } from './observaciones/observaciones.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 registerLocaleData(localeES, 'es');
 
@@ -29,7 +31,8 @@ const routes: Routes = [
   { path: 'pacientes', component: PacientesComponent },
   { path: 'pacientes/page/:page', component: PacientesComponent },
   { path: 'pacientes/form', component: FormComponent },
-  { path: 'pacientes/form/:id', component: FormComponent }
+  { path: 'pacientes/form/:id', component: FormComponent },
+  { path: 'observaciones/:id', component: ObservacionesComponent },
 ];
 
 @NgModule({
@@ -43,11 +46,13 @@ const routes: Routes = [
     HomeComponent,
     LoginComponent,
     HeartRateChartComponent,
+    ObservacionesComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    NgxPaginationModule,
     RouterModule.forRoot(routes)
   ],
   providers: [PacienteService],
