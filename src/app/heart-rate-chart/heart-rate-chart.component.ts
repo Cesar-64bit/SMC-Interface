@@ -1,5 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import axios from 'axios';
 import Chart from 'chart.js/auto';
+import zoomPlugin from 'chartjs-plugin-zoom';
+
+Chart.register(zoomPlugin);
 
 @Component({
   selector: 'app-heart-rate-chart',
@@ -9,17 +13,19 @@ import Chart from 'chart.js/auto';
 export class HeartRateChartComponent implements OnInit, OnDestroy {
 
   private chart: any;
-  private timer: any;
+  private ws: WebSocket;
 
   constructor() { }
 
   ngOnInit(): void {
     this.initializeChart();
-    this.startSimulation();
+    this.initializeWebSocket();
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.timer);
+    if (this.ws) {
+      this.ws.close();
+    }
   }
 
   private initializeChart(): void {
@@ -29,11 +35,9 @@ export class HeartRateChartComponent implements OnInit, OnDestroy {
       data: {
         labels: [],
         datasets: [{
-          label: 'Ritmo Cardíaco',
+          label: 'Señal cardíaca',
           data: [],
-          borderColor: 'rgba(255, 99, 132, 1)',
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          tension: 0.1
+          tension: 0.9
         }]
       },
       options: {
@@ -42,24 +46,46 @@ export class HeartRateChartComponent implements OnInit, OnDestroy {
           y: {
             beginAtZero: true
           }
+        },
+        plugins: {
+          zoom: {
+            pan: {
+              enabled: true,
+              mode: 'xy'
+            },
+            zoom: {
+              wheel: {
+                enabled: true,
+              },
+              pinch: {
+                enabled: true
+              },
+              mode: 'xy'
+            }
+          }
         }
       }
     });
   }
 
-  private startSimulation(): void {
-    this.timer = setInterval(() => {
-      const newHeartRate = Math.floor(Math.random() * (120 - 60 + 1)) + 60;
-      this.chart.data.labels.push(new Date().toLocaleTimeString());
-      this.chart.data.datasets[0].data.push(newHeartRate);
+  private async initializeWebSocket(): Promise<void> {
+    const url = 'http://localhost:8080/api/signal-process';
 
-      const maxDataPoints = 10;
-      if (this.chart.data.labels.length > maxDataPoints) {
-        this.chart.data.labels.shift();
-        this.chart.data.datasets[0].data.shift();
-      }
+    try {
+      const response = await axios.get(url);
+      const data = response.data;
+      console.log(data);
+      console.log(data.length);
 
-      this.chart.update();
-    }, 2000);
+      const labels = data.map(item => item.hora);
+      const heartRates = data.map(item => item.senal);
+      console.log(labels);
+
+      this.chart.data.labels = labels;
+      this.chart.data.datasets[0].data = heartRates;
+      this.chart.update('none');
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   }
 }
