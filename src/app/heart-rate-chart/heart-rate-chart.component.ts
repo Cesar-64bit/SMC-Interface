@@ -131,7 +131,7 @@ export class HeartRateChartComponent implements OnInit, OnDestroy {
   // }
 
   private async initializeWebSocket(): Promise<void> {
-    const url = 'http://192.168.1.17:8080/api/all-data';
+    const url = 'http://localhost:8081/api/all-data';
 
     try {
       const response = await axios.get(url);
