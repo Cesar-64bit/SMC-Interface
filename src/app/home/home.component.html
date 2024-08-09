@@ -54,6 +54,14 @@
                             </tr>
                         </tbody>
                     </table>
+
+                    <button class="btn btn-success mt-3 custom-margin" [routerLink]="['/observaciones', paciente.id]">
+                        <i class="fas fa-chart-line mr-2"></i>Ver Historial
+                    </button>
+                    <button class="btn btn-warning mt-3 custom-margin"
+                        [routerLink]="['/expediente-cardiaco', paciente.id]">
+                        <i class=" fas fa-chart-line mr-2"></i>Ver expediente cardiaco
+                    </button>
                 </div>
             </div>
         </div>
@@ -71,11 +79,11 @@
                     <button class="btn btn-outline-secondary" type="button" (click)="create()">Agregar</button>
                 </div>
             </div>
-            <button class="btn btn-success mt-3 custom-margin" [routerLink]="['/observaciones', paciente.id]">
-                <i class="fas fa-chart-line mr-2"></i>Ver Historial
-            </button>
             <button class="btn btn-primary mt-3 custom-margin" (click)="toggleChart()">
                 <i class="fas fa-chart-line mr-2"></i>Ver gráfico
+            </button>
+            <button *ngIf="showSaveButton" class="btn btn-warning mt-3 custom-margin" (click)="guardarDatos()">
+                <i class="fas fa-save mr-2"></i>Guardar datos
             </button>
 
         </div>

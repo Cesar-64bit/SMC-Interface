@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { HeartRateChartComponent } from './heart-rate-chart/heart-rate-chart.component';
 import { ObservacionesComponent } from './observaciones/observaciones.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ExpedienteCardiacoComponent } from './expediente-cardiaco/expediente-cardiaco.component';
 
 registerLocaleData(localeES, 'es');
 
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'pacientes/form', component: FormComponent },
   { path: 'pacientes/form/:id', component: FormComponent },
   { path: 'observaciones/:id', component: ObservacionesComponent },
+  { path: 'expediente-cardiaco/:id', component: ExpedienteCardiacoComponent }
 ];
 
 @NgModule({
@@ -47,6 +49,7 @@ const routes: Routes = [
     LoginComponent,
     HeartRateChartComponent,
     ObservacionesComponent,
+    ExpedienteCardiacoComponent,
   ],
   imports: [
     BrowserModule,

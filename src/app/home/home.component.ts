@@ -19,9 +19,11 @@ export class HomeComponent {
   public errores: string[];
 
   showChart: boolean = false;
+  showSaveButton: boolean = false;
 
   toggleChart(): void {
     this.showChart = !this.showChart;
+    this.showSaveButton = this.showChart;
   }
 
   constructor(
@@ -49,7 +51,7 @@ export class HomeComponent {
       let id = params['id'];
       if (id) {
         this.observacionesService.getByPacienteId(id).subscribe(observaciones => {
-          this.observaciones = observaciones;  // Asigna el array de observaciones
+          this.observaciones = observaciones;
           console.log(observaciones);
           this.showHistorialModal();
         });
