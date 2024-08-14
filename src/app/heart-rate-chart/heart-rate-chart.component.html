@@ -1,1 +1,5 @@
+<div>
+    <input type="range" min="0" [max]="maxSliderValue" [(ngModel)]="currentSliderValue"
+        (input)="onSliderChange($event)">
+</div>
 <canvas id="heartRateChart" width="400" height="200"></canvas>

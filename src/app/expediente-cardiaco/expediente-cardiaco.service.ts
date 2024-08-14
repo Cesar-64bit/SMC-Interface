@@ -3,7 +3,6 @@ import { ExpedienteCardiaco } from "./expediente-cardiaco";
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
-import swal from 'sweetalert2';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +10,7 @@ import swal from 'sweetalert2';
 
 export class ExpedienteCardiacoService {
     private urlEndPoint: string = 'http://localhost:8080/api/info-cardiaca';
+    //private urlEndPointMongo: string = 'http://localhost:8081/api/all-data';
     private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
     constructor(private http: HttpClient) { }
@@ -23,4 +23,13 @@ export class ExpedienteCardiacoService {
             })
         );
     }
+
+    // getAllData(): Observable<ExpedienteCardiaco[]> {
+    //     return this.http.get<ExpedienteCardiaco[]>(`${this.urlEndPointMongo}`).pipe(
+    //         catchError(e => {
+    //             console.error('Error fetching expediente-cardiaco', e);
+    //             return of([] as ExpedienteCardiaco[]);
+    //         })
+    //     );
+    // }
 }

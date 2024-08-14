@@ -1,11 +1,39 @@
 <div class="container mt-5">
     <div class="jumbotron text-center bg-light p-5 rounded shadow-sm">
         <h1 class="display-4">Historial Cardíaco</h1>
-        <p class="lead">Aquí puede consultar el historial cardíaco completo realizadas para cada paciente.</p>
+        <p class="lead">Aquí puede consultar el historial cardíaco completo realizado para cada paciente.</p>
         <hr class="my-4">
-        <p>La tabla a continuación muestra los datos cardíacos registrados, organizadas por fecha.</p>
+        <p>La tabla a continuación muestra los datos cardíacos registrados, organizados por fecha.</p>
     </div>
 </div>
+
+<h2 class="mb-4">Alertas de Salud</h2>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div *ngIf="alertMessages.length > 0" class="table-responsive">
+            <table class="table table-bordered table-striped shadow-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Tipo de Alerta</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let message of alertMessages">
+                        <td>{{ message.type }}</td>
+                        <td>{{ message.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="alertMessages.length === 0" class="alert alert-info" role="alert">
+            No se detectaron irregularidades.
+        </div>
+    </div>
+</div>
+<button (click)="procesarDatos()" class="btn btn-primary mb-4">Procesar</button>
+
 
 <div class="row mt-5">
     <div class="col-md-12">
@@ -13,6 +41,10 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <app-heart-rate-chart class="chart-container"></app-heart-rate-chart>
+                <div>
+                    <button (click)="previousChunk()" class="btn btn-secondary">Anterior</button>
+                    <button (click)="nextChunk()" class="btn btn-secondary">Siguiente</button>
+                </div>
             </div>
         </div>
     </div>

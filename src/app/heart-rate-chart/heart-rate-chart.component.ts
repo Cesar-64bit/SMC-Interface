@@ -16,11 +16,12 @@ Chart.register(zoomPlugin);
 export class HeartRateChartComponent implements OnInit, OnDestroy {
 
   private chart: any;
+  private paciente: Paciente = new Paciente();
+  public heartRateData: any[] = [];
+  public currentSliderValue: number = 0;
+  public maxSliderValue: number = 0;
+  private dataChunkSize: number = 1000;
   private ws: WebSocket;
-  public paciente: Paciente = new Paciente();
-  public agregarExpedienteCardiaco: ExpedienteCardiaco = new ExpedienteCardiaco();
-  private heartRateData: any[] = [];  // Para almacenar los datos de la señal y hora
-  private cont: number;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -29,10 +30,15 @@ export class HeartRateChartComponent implements OnInit, OnDestroy {
       this.paciente.id = +params.get('id')!;
       this.initializeChart();
       this.initializeWebSocket();
+      //this.fetchData();
     });
   }
 
   ngOnDestroy(): void {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
     if (this.ws) {
       this.ws.close();
     }
@@ -46,11 +52,6 @@ export class HeartRateChartComponent implements OnInit, OnDestroy {
       this.chart = null;
     }
 
-    const existingChart = Chart.getChart(ctx);
-    if (existingChart) {
-      existingChart.destroy();
-    }
-
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -59,7 +60,7 @@ export class HeartRateChartComponent implements OnInit, OnDestroy {
           label: 'Señal cardíaca',
           data: [],
           tension: 0.9
-        }]
+        }],
       },
       options: {
         responsive: true,
@@ -89,91 +90,105 @@ export class HeartRateChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  // private initializeWebSocket(): void {
-  //   const url = 'ws://192.168.1.17:8080/ws';
+  private initializeWebSocket(): void {
+    const url = 'ws://192.168.1.18:8081/ws';
 
-  //   this.ws = new WebSocket(url);
+    this.ws = new WebSocket(url);
 
-  //   this.ws.onmessage = (event) => {
-  //     if (this.ws) { // Verifica si el WebSocket está activo
-  //       try {
-  //         const data = JSON.parse(event.data);
+    this.ws.onmessage = (event) => {
+      if (this.ws) {
+        try {
+          const data = JSON.parse(event.data);
 
-  //         if (data && data.senal !== undefined) {
-  //           const newHeartRate = data.senal;
+          if (data && data.senal !== undefined) {
+            const newHeartRate = data.senal;
 
-  //           // Añadir nueva lectura a la gráfica
-  //           this.chart.data.labels.push(new Date().toLocaleTimeString());
-  //           this.chart.data.datasets[0].data.push(newHeartRate);
+            this.heartRateData.push({
+              hora: new Date().toLocaleTimeString(),
+              senal: newHeartRate
+            });
 
-  //           const maxDataPoints = 500;
-  //           if (this.chart.data.labels.length > maxDataPoints) {
-  //             this.chart.data.labels.shift();
-  //             this.chart.data.datasets[0].data.shift();
-  //           }
+            this.saveData(data.senal, new Date().toLocaleTimeString(), this.paciente.id);
 
-  //           this.chart.update('none');
-  //         }
-  //       } catch (error) {
-  //         console.error("Error procesando el mensaje WebSocket:", error);
-  //       }
-  //     }
-  //   };
+            this.maxSliderValue = Math.floor(this.heartRateData.length / this.dataChunkSize);
 
-  //   this.ws.onclose = () => {
-  //     console.log("WebSocket connection closed.");
-  //     this.ws = null; // Asegúrate de que ws esté en null para evitar actualizaciones posteriores.
-  //   };
+            if (this.currentSliderValue === this.maxSliderValue) {
+              this.updateChart(this.currentSliderValue);
+            }
+          }
+        } catch (error) {
+          console.error("Error processing WebSocket message:", error);
+        };
+      }
+    };
 
-  //   this.ws.onerror = (error) => {
-  //     console.error("WebSocket error:", error);
-  //   };
+    this.ws.onclose = () => {
+      console.log("WebSocket connection closed.");
+      this.ws = null;
+    };
+
+    this.ws.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+  }
+
+  private updateChart(startIndex: number): void {
+    const endIndex = (startIndex + 1) * this.dataChunkSize;
+    const dataToShow = this.heartRateData.slice(startIndex * this.dataChunkSize, endIndex)
+
+    const labels = dataToShow.map(item => item.hora);
+    const heartRates = dataToShow.map(item => item.senal);
+
+    this.chart.data.labels = labels;
+    this.chart.data.datasets[0].data = heartRates;
+    this.chart.update('none');
+  }
+
+  public onSliderChange(event: any): void {
+    this.updateChart(this.currentSliderValue);
+  }
+
+  // private async fetchData(): Promise<void> {
+  //   const url = 'http://localhost:8081/api/all-data';
+
+  //   try {
+  //     const response = await axios.get(url);
+  //     const data = response.data;
+
+  //     this.heartRateData = data;
+  //     this.maxSliderValue = Math.floor(data.length / this.dataChunkSize);
+
+  //     this.updateChart(0);
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
   // }
 
-  private async initializeWebSocket(): Promise<void> {
-    const url = 'http://localhost:8081/api/all-data';
+  // private updateChartPeriodically(): void {
+  //   if (this.heartRateData && this.heartRateData.length > 0) {
+  //     let index = 0;
 
-    try {
-      const response = await axios.get(url);
-      const data = response.data;
+  //     setInterval(() => {
+  //       if (index < this.heartRateData.length) {
+  //         const item = this.heartRateData[index];
+  //         this.chart.data.labels.push(new Date().toLocaleTimeString());
+  //         this.chart.data.datasets[0].data.push(item.senal);
+  //         console.log('Datos:' + index);
 
-      console.log(data);
-      console.log(data.length);
+  //         const maxDataPoints = 200;
+  //         if (this.chart.data.labels.length > maxDataPoints) {
+  //           this.chart.data.labels.shift();
+  //           this.chart.data.datasets[0].data.shift();
+  //         }
 
-      this.heartRateData = data;
-
-      this.updateChartPeriodically();
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }
-
-  private updateChartPeriodically(): void {
-    if (this.heartRateData && this.heartRateData.length > 0) {
-      let index = 0;
-
-      setInterval(() => {
-        if (index < this.heartRateData.length) {
-          const item = this.heartRateData[index];
-          this.chart.data.labels.push(new Date().toLocaleTimeString());
-          this.chart.data.datasets[0].data.push(item.senal);
-          console.log('Datos:' + index);
-
-          const maxDataPoints = 200;
-          if (this.chart.data.labels.length > maxDataPoints) {
-            this.chart.data.labels.shift();
-            this.chart.data.datasets[0].data.shift();
-          }
-
-          this.chart.update('none');
-          index++;
-        }
-      }, 1);
-    } else {
-      console.error('No hay datos para graficar.');
-    }
-  }
-
+  //         this.chart.update('none');
+  //         index++;
+  //       }
+  //     }, 1);
+  //   } else {
+  //     console.error('No hay datos para graficar.');
+  //   }
+  // }
 
   public async guardarDatos(): Promise<void> {
     for (const item of this.heartRateData) {

@@ -69,8 +69,7 @@ export class HomeComponent {
 
     this.observacionesService.create(this.nuevaObservacion).subscribe(
       observaciones => {
-        this.router.navigate(['/info']);
-        swal.fire('Comentario añadido con éxito!', 'success');
+        swal.fire('Comentario añadido con éxito!', '', 'success');
       },
       err => {
         this.errores = err.error.errors as string[];
